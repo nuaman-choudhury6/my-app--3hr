@@ -54,7 +54,7 @@ const AddStudentForm = () => {
               onChange={(e) => setAddress(e.target.value)}
               required
             />
-            <button type="submit">Add Student</button>
+            <button type="submit">Add</button>
           </form>
           <button onClick={closeModal}>Close</button>
         </div>

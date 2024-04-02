@@ -3,24 +3,28 @@ import React, { useContext, useState } from 'react';
 import { StudentContext } from '../contexts/StudentContext';
 
 const AllStudents = () => {
-  const { students, deleteStudent, editStudent } = useContext(StudentContext);
+  const { students, componentCount, deleteStudent, editStudent } = useContext(StudentContext);
   const [editedStudent, setEditedStudent] = useState(null);
+  const [editedStudentIndex, setEditedStudentIndex] = useState(null); // New state to store the index of the edited student
 
   const handleEdit = (index) => {
     setEditedStudent(students[index]);
+    setEditedStudentIndex(index); // Set the index of the edited student
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here, you can implement the logic to update the student in your context
-    // For simplicity, I'm logging the edited student
-    console.log('Edited student:', editedStudent);
-    setEditedStudent(null); // Clear editedStudent after submission
+    // Implement logic to update the student using editStudent function
+    if (editedStudent && editedStudentIndex !== null) {
+      editStudent(editedStudentIndex, editedStudent); // Pass the index to editStudent function
+      setEditedStudent(null);
+      setEditedStudentIndex(null); // Clear the edited student index after submission
+    }
   };
 
   return (
     <div>
-      <h2>All Students</h2>
+      <h2>All Students ({componentCount})</h2>
       <ul>
         {students.map((student, index) => (
           <li key={index}>
